@@ -1,0 +1,17 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@ctrl(.*)$": "<rootDir>/../src/controllers/$1",
+    "@core(.*)$": "<rootDir>/../src/core/$1",
+    "@db(.*)$": "<rootDir>/../src/databases/$1",
+    "@lib(.*)$": "<rootDir>/../src/library/$1",
+    "@conf(.*)$": "<rootDir>/../src/config/$1",
+    "@types(.*)$": "<rootDir>/../src/types/$1"
+  }
+}

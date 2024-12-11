@@ -1,0 +1,10 @@
+{
+  "name": "micro-pos",
+  "version": "0.0.0-dev",
+  "description": "A lightweight headless POS system for micro business",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tulungagung-Developer/micro-pos.git"
+  }
+}
