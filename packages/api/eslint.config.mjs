@@ -13,7 +13,7 @@ export default [
   {
     rules: {
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-      'no-console': 'error',
+      'no-console': ['error', { allow: ['warn', 'error'] }],
     },
   },
 ];
