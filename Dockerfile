@@ -18,7 +18,7 @@ RUN pnpm --filter=./packages/web-app deploy --prod /prod/web
 FROM denoland/deno:2.1.4 AS api
 
 COPY --from=builder /prod/api ./app
-WORKDIR ./app
+WORKDIR /app
 EXPOSE 3000
 CMD ["deno", "--allow-all", "dist/main.js"]
 

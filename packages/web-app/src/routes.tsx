@@ -1,10 +1,9 @@
-import React from 'react';
 import LoginPage from '@pages/login';
 import { RouteObject } from 'react-router';
 
 export default [
   {
-    path: '/',
+    path: '/login',
     element: <LoginPage />,
   },
 ] as RouteObject[];
