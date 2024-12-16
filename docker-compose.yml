@@ -16,6 +16,8 @@ services:
       - '30011:8080'
     networks:
       net:
+    environment:
+      APP_HOST: ${APP_HOST}
 
   server:
     container_name: micro-pos-server

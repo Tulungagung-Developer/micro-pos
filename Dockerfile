@@ -22,11 +22,30 @@ WORKDIR ./app
 EXPOSE 3000
 CMD ["deno", "--allow-all", "dist/main.js"]
 
-FROM busybox:1.37 AS web
+FROM nginx:alpine AS web
+COPY --from=builder /prod/web/dist /usr/share/nginx/html
 
-COPY --from=builder /prod/web/dist ./app
-WORKDIR ./app
+ARG PORT=8080
+ARG APP_HOST=localhost
+
+COPY <<EOF /etc/nginx/templates/default.conf.template
+server {
+    listen ${PORT:-8080};
+    server_name ${APP_HOST:-localhost};
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files \$uri \$uri/ /index.html;
+    }
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+    add_header Referrer-Policy "strict-origin-when-cross-origin";
+}
+EOF
+
+RUN chown -R nginx:nginx /usr/share/nginx/html
 
 EXPOSE 8080
-
-CMD ["busybox", "httpd", "-f", "-v", "-p", "8080"]
+CMD ["nginx", "-g", "daemon off;"]
