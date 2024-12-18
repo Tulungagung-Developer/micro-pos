@@ -1,5 +1,6 @@
+import TextField from "@components/input";
 import React, { useState } from "react";
-import { Form, Schema, Button, FormInstance } from "rsuite";
+import { Form, Schema, FormInstance } from "rsuite";
 
 const { StringType } = Schema.Types;
 
@@ -12,33 +13,16 @@ const model = Schema.Model({
 });
 
 // Define props type for TextField
-interface TextFieldProps {
-	email: string;
-	label: string;
-	accepter?: React.ElementType; // For custom input types
-	type?: string; // To handle input types like 'password'
-	[key: string]: any; // To allow additional props
-}
 
 // TextField component
-const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
-	({ name, label, accepter, type, ...rest }, ref) => {
-		return (
-			<Form.Group className='w-full flex-col gap-2 flex ' controlId={name}>
-				<Form.ControlLabel>{label}</Form.ControlLabel>
-				<Form.Control
-					className='w-full rounded-lg p-1'
-					name={name}
-					accepter={accepter}
-					type={type}
-					ref={ref}
-					{...rest}
-				/>
-			</Form.Group>
-		);
-	}
-);
-TextField.displayName = "TextField";
+
+function getRelativeCoordinates(event: MouseEvent): { x: number; y: number } {
+	const rect = (event.target as HTMLElement).getBoundingClientRect();
+	return {
+		x: event.clientX - rect.left,
+		y: event.clientY - rect.top,
+	};
+}
 
 export const ContentForm: React.FC = () => {
 	const formRef = React.useRef<FormInstance>(null);
@@ -49,6 +33,23 @@ export const ContentForm: React.FC = () => {
 
 	const handleSubmit = () => {
 		console.log(data);
+	};
+
+	const [showSpotlight, setShowSpotlight] = useState(false);
+	const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
+		x: 0,
+		y: 0,
+	});
+
+	const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+		setMousePosition(getRelativeCoordinates(e.nativeEvent));
+	};
+
+	const handleHoverStart = () => {
+		setShowSpotlight(true);
+	};
+	const handleHoverEnd = () => {
+		setShowSpotlight(false);
 	};
 
 	return (
@@ -74,8 +75,13 @@ export const ContentForm: React.FC = () => {
 					setData(formValue as { email: string; password: string })
 				}
 				fluid>
-				<TextField placeholder='Masukan Email' name='email' label='Username' />
-				<TextField name='password' label='Password' type='password' />
+				<TextField placeholder='Masukan Email' name='email' label='Email' />
+				<TextField
+					placeholder='Masukan Password'
+					name='password'
+					label='Password'
+					type='password'
+				/>
 				<Form.Group className='w-full gap-5 flex flex-col'>
 					<div className='flex  flex-row justify-between items-center'>
 						<div className='flex items-center justify-center gap-2'>
@@ -83,14 +89,28 @@ export const ContentForm: React.FC = () => {
 							<span className=''>Remember for 1 day</span>
 						</div>
 						<div>
-							<a href='#'>Forgot Password?</a>
+							<a className='text-purple-500' href='#'>
+								Forgot Password?
+							</a>
 						</div>
 					</div>
-					<Button
-						className='w-full py-3 text-white bg-purple-500 hover:text-white hover:bg-purple:400 font-semibold'
+					<button
+						style={
+							{
+								"--left-value": `${mousePosition.x}px`,
+								"--top-value": `${mousePosition.y}px`,
+								"--after-opacity": showSpotlight ? 0.8 : 0.2,
+							} as React.CSSProperties
+						}
+						onMouseMove={(e) => {
+							handleMouseMove(e);
+						}}
+						onMouseEnter={handleHoverStart}
+						onMouseLeave={handleHoverEnd}
+						className='w-full button-spotlight rounded-[8px] py-3 text-white bg-[#AB73F2]  text-xl hover:text-white font-semibold'
 						onClick={handleSubmit}>
 						Login
-					</Button>
+					</button>
 				</Form.Group>
 			</Form>
 		</div>

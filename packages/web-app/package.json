@@ -10,6 +10,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@iconify/react": "^5.1.0",
 		"axios": "^1.7.8",
 		"axios-hooks": "^5.0.2",
 		"crypto-js": "^4.2.0",
@@ -24,6 +25,7 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.15.0",
+		"@iconify-json/material-symbols-light": "^1.2.10",
 		"@iconify-json/mdi": "^1.2.1",
 		"@types/crypto-js": "^4.2.2",
 		"@types/lodash-es": "^4.17.12",

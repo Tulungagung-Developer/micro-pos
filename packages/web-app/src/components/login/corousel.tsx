@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "rsuite";
 
 interface Card {
 	id: number;
@@ -93,9 +92,9 @@ const StackedCardCarousel: React.FC<FlipCardCarousel> = ({ data }) => {
 							transition={{
 								duration: 2,
 								type: "spring",
-								// stiffness: 300,
-								// damping: 20,
-								// mass: 1,
+								stiffness: 210,
+								damping: 20,
+								mass: 1,
 								ease: "easeInOut",
 							}}>
 							<div className='flex justify-center items-center flex-col py-10'>
@@ -113,19 +112,112 @@ const StackedCardCarousel: React.FC<FlipCardCarousel> = ({ data }) => {
 				style={{
 					zIndex: 100,
 				}}
-				className='absolute flex w-full gap-10  justify-center bottom-[50px] left-[calc(50%+50px)] group transform -translate-x-1/2 flex space-x-4'>
-				<Button
+				className='absolute flex w-full gap-4  justify-center bottom-[10px] left-[calc(50%+70px)] transform -translate-x-1/2 flex space-x-4'>
+				<button
 					onClick={prevCard}
-					className='bg-transparent   border border-2 border-white w-14 h-14 text-white  rounded-full'
+					className='bg-transparent hover:bg-none w-20 h-auto  group'
 					disabled={isAnimating}>
-					Prev
-				</Button>
-				<Button
+					{/* <Icon
+						icon='material-symbols-light:arrow-circle-left-outline-rounded'
+						width='70'
+						height='70'
+					/> */}
+					<svg
+						className='text-white  group-hover:hidden'
+						width='56'
+						height='56'
+						viewBox='0 0 56 56'
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'>
+						<path
+							d='M0.5 28C0.5 12.8122 12.8122 0.5 28 0.5C43.1878 0.5 55.5 12.8122 55.5 28C55.5 43.1878 43.1878 55.5 28 55.5C12.8122 55.5 0.5 43.1878 0.5 28Z'
+							stroke='white'
+							stroke-opacity='0.5'
+						/>
+						<path
+							d='M35 28H21M21 28L28 35M21 28L28 21'
+							stroke='white'
+							stroke-width='2'
+							stroke-linecap='round'
+							stroke-linejoin='round'
+						/>
+					</svg>
+
+					<svg
+						width='60'
+						className='text-white hidden group-hover:inline rotate-180'
+						height='56'
+						viewBox='0 0 56 56'
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'>
+						<path
+							d='M0 28C0 12.536 12.536 0 28 0C43.464 0 56 12.536 56 28C56 43.464 43.464 56 28 56C12.536 56 0 43.464 0 28Z'
+							fill='white'
+						/>
+						<path
+							d='M0.5 28C0.5 12.8122 12.8122 0.5 28 0.5C43.1878 0.5 55.5 12.8122 55.5 28C55.5 43.1878 43.1878 55.5 28 55.5C12.8122 55.5 0.5 43.1878 0.5 28Z'
+							stroke='white'
+							stroke-opacity='0.5'
+						/>
+						<path
+							d='M21 28H35M35 28L28 21M35 28L28 35'
+							stroke='#AB73F2'
+							stroke-width='2'
+							stroke-linecap='round'
+							stroke-linejoin='round'
+						/>
+					</svg>
+				</button>
+				<button
 					onClick={nextCard}
-					className='bg-transparent border border-2 border-white group border-white w-14 h-14 text-white  rounded-full'
+					className='bg-transparent hover:bg-none w-20 h-auto group'
 					disabled={isAnimating}>
-					Next
-				</Button>
+					<svg
+						className='text-white  group-hover:hidden rotate-180'
+						width='56'
+						height='56'
+						viewBox='0 0 56 56'
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'>
+						<path
+							d='M0.5 28C0.5 12.8122 12.8122 0.5 28 0.5C43.1878 0.5 55.5 12.8122 55.5 28C55.5 43.1878 43.1878 55.5 28 55.5C12.8122 55.5 0.5 43.1878 0.5 28Z'
+							stroke='white'
+							stroke-opacity='0.5'
+						/>
+						<path
+							d='M35 28H21M21 28L28 35M21 28L28 21'
+							stroke='white'
+							stroke-width='2'
+							stroke-linecap='round'
+							stroke-linejoin='round'
+						/>
+					</svg>
+
+					<svg
+						width='60'
+						className='text-white hidden group-hover:inline '
+						height='56'
+						viewBox='0 0 56 56'
+						fill='none'
+						xmlns='http://www.w3.org/2000/svg'>
+						<path
+							d='M0 28C0 12.536 12.536 0 28 0C43.464 0 56 12.536 56 28C56 43.464 43.464 56 28 56C12.536 56 0 43.464 0 28Z'
+							fill='white'
+						/>
+						<path
+							d='M0.5 28C0.5 12.8122 12.8122 0.5 28 0.5C43.1878 0.5 55.5 12.8122 55.5 28C55.5 43.1878 43.1878 55.5 28 55.5C12.8122 55.5 0.5 43.1878 0.5 28Z'
+							stroke='white'
+							stroke-opacity='0.5'
+						/>
+						<path
+							d='M21 28H35M35 28L28 21M35 28L28 35'
+							stroke='#AB73F2'
+							stroke-width='2'
+							stroke-linecap='round'
+							stroke-linejoin='round'
+						/>
+					</svg>
+				</button>
 			</div>
 		</div>
 	);

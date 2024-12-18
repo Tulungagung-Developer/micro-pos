@@ -3,5 +3,36 @@
 @import "vars";
 
 .title {
-  color: @primary-color;
+	color: @primary-color;
+}
+
+.button-spotlight {
+	background-color: #000000;
+	color: #ffffff;
+	padding: 14px 24px;
+	border: none;
+	font-family: sans-serif;
+	font-size: 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	user-select: none;
+	--left-value: 0px;
+	--top-value: 0px;
+	--after-opacity: 0.1;
+	position: relative;
+}
+
+.button-spotlight::after {
+	background: radial-gradient(
+		circle at var(--left-value) var(--top-value),
+		#c6a0f6,
+		#0000000f 40%;
+	);
+
+	opacity: var(--after-opacity);
+	transition: opacity 0.5s ease-out;
+	position: absolute;
+	inset: 0px;
+	content: "";
+	border-radius: 1px;
 }
