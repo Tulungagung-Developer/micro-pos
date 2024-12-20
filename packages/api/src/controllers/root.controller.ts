@@ -1,15 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import { RootService } from './root.service';
 import { AbstractController } from '@ctrl/abstract.controller';
 
 @Controller()
 export class RootController extends AbstractController {
-  constructor(private readonly appService: RootService) {
-    super();
-  }
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello() {
+    return { message: 'Micro-POS API' };
   }
 }
