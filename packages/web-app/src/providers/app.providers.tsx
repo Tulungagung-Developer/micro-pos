@@ -1,5 +1,5 @@
-import { LocalStorage } from "@libraries/storage";
-import React, { createContext, useContext, useMemo, useState } from "react";
+import { LocalStorage } from '@libraries/storage';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 
 interface IContextProps {
   isAuthenticated: boolean;
@@ -22,18 +22,16 @@ interface IProviderProps {
 }
 
 export const AppProvider: React.FC<IProviderProps> = ({ children }) => {
-  const localToken: any = LocalStorage.getItem("user_token");
-  const localUser: any = LocalStorage.getItem("user_profile");
+  const localToken: any = LocalStorage.getItem('user_token');
+  const localUser: any = LocalStorage.getItem('user_profile');
   const [token, setTokenState] = useState<string | null>(localToken);
-  const [user, setUserState] = useState<any | null>(
-    localUser ? JSON.parse(localUser) : null
-  );
+  const [user, setUserState] = useState<any | null>(localUser ? JSON.parse(localUser) : null);
 
   const setToken = (token: string) => {
     if (!token) {
-      LocalStorage.removeItem("user_token");
+      LocalStorage.removeItem('user_token');
     } else {
-      LocalStorage.setItem("user_token", token);
+      LocalStorage.setItem('user_token', token);
     }
 
     setTokenState(token);
@@ -41,9 +39,9 @@ export const AppProvider: React.FC<IProviderProps> = ({ children }) => {
 
   const setUser = (user: any) => {
     if (!user) {
-      LocalStorage.removeItem("user_profile");
+      LocalStorage.removeItem('user_profile');
     } else {
-      LocalStorage.setItem("user_profile", user);
+      LocalStorage.setItem('user_profile', user);
     }
 
     setUserState(user);
@@ -62,12 +60,10 @@ export const AppProvider: React.FC<IProviderProps> = ({ children }) => {
       setUser,
       setLogout,
     }),
-    [token, user]
+    [token, user],
   );
 
-  return (
-    <AppContext.Provider value={contextPayload}>{children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={contextPayload}>{children}</AppContext.Provider>;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components

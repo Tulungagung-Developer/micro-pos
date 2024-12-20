@@ -6,7 +6,7 @@
  * of any JavaScript objects.
  * */
 
-import { AES, enc, lib, mode, pad, HmacSHA256, PBKDF2, SHA3 } from "crypto-js";
+import { AES, enc, lib, mode, pad, HmacSHA256, PBKDF2, SHA3 } from 'crypto-js';
 
 export type Encoder = typeof enc.Base64;
 
@@ -42,51 +42,38 @@ export class Encryptor {
    */
   public constructor(secret: string | lib.WordArray) {
     if (!secret) {
-      throw new Error(
-        "Encryptor object MUST BE initialised with a SECRET KEY."
-      );
+      throw new Error('Encryptor object MUST BE initialised with a SECRET KEY.');
     }
 
-    this._dataBuffer = "";
+    this._dataBuffer = '';
     this._encoder = enc.Utf8;
-    this._secret = SHA3(
-      typeof secret === "string" ? secret : secret.toString()
-    );
+    this._secret = SHA3(typeof secret === 'string' ? secret : secret.toString());
     this._keySize = 256;
     this._iterations = 100;
   }
 
   private static sanitiseData(data: PlainData): PlainText {
     if (!data) {
-      throw new Error("There is no data provided. Process halted.");
+      throw new Error('There is no data provided. Process halted.');
     }
 
-    const sanitised: string | null =
-      typeof data === "object"
-        ? JSON.stringify(data)
-        : data
-        ? data.toString()
-        : null;
+    const sanitised: string | null = typeof data === 'object' ? JSON.stringify(data) : data ? data.toString() : null;
     if (sanitised === null) {
-      throw new Error(
-        "Invalid data type. Only object, string, number and boolean data types are allowed."
-      );
+      throw new Error('Invalid data type. Only object, string, number and boolean data types are allowed.');
     }
 
     return sanitised;
   }
 
   private static transform(src: CipherText): PlainData {
-    if (src.toLowerCase() === "true" || src.toLowerCase() === "false") {
-      return src.toLowerCase() === "true";
+    if (src.toLowerCase() === 'true' || src.toLowerCase() === 'false') {
+      return src.toLowerCase() === 'true';
     }
 
     try {
       return JSON.parse(src);
-    } catch (jsonError) {
-      return /^-?[\d.]+(?:e-?\d+)?$/.test(src) && !Number.isNaN(parseFloat(src))
-        ? parseFloat(src)
-        : src;
+    } catch (_jsonError) {
+      return /^-?[\d.]+(?:e-?\d+)?$/.test(src) && !Number.isNaN(parseFloat(src)) ? parseFloat(src) : src;
     }
   }
 
@@ -129,10 +116,7 @@ export class Encryptor {
    *
    * @return  {string | WordArray}  Returns a random string or WordArray.
    */
-  public static generateRandom(
-    length = 128,
-    expectsWordArray = false
-  ): string | lib.WordArray {
+  public static generateRandom(length = 128, expectsWordArray = false): string | lib.WordArray {
     const random = lib.WordArray.random(length / 8);
 
     return expectsWordArray ? random : random.toString();
@@ -180,31 +164,23 @@ export class Encryptor {
 
   private _decrypt(): PlainData {
     if (this._dataBuffer.length <= 64) {
-      throw new Error("Invalid cipher text. Decryption halted.");
+      throw new Error('Invalid cipher text. Decryption halted.');
     }
 
     const salt = enc.Hex.parse(this._dataBuffer.substring(0, 32));
     const initialVector = enc.Hex.parse(this._dataBuffer.substring(32, 64));
-    const encrypted = this._dataBuffer.substring(
-      64,
-      this._dataBuffer.length - 64
-    );
+    const encrypted = this._dataBuffer.substring(64, this._dataBuffer.length - 64);
 
     const key = PBKDF2(this._secret.toString(), salt, {
       keySize: this._keySize / 32,
       iterations: this._iterations,
     });
 
-    const hashedCipherText = this._dataBuffer.substring(
-      this._dataBuffer.length - 64
-    );
-    const cipherText = this._dataBuffer.substring(
-      0,
-      this._dataBuffer.length - 64
-    );
+    const hashedCipherText = this._dataBuffer.substring(this._dataBuffer.length - 64);
+    const cipherText = this._dataBuffer.substring(0, this._dataBuffer.length - 64);
 
     if (hashedCipherText !== HmacSHA256(cipherText, key).toString()) {
-      throw new Error("Invalid encrypted text received. Decryption halted.");
+      throw new Error('Invalid encrypted text received. Decryption halted.');
     }
 
     const decrypted = AES.decrypt(encrypted, key, {
@@ -232,8 +208,7 @@ export class Encryptor {
     });
 
     // Combining the encrypted string with salt and IV to form cipher-text
-    const cipherText =
-      salt.toString() + initialVector.toString() + encrypted.toString();
+    const cipherText = salt.toString() + initialVector.toString() + encrypted.toString();
 
     // Generate authentication tag and append that to the cipher-text using the key derived from PBKDF2.
     // (Optional TODO: Include a module to generate authentication key. Possibly HKDF-SHA256.)
@@ -329,19 +304,11 @@ export class Encryptor {
    *
    * @return  {string}  The decrypted data of the encrypted string.
    */
-  public decrypt(
-    cipher: CipherText,
-    expectsObject: boolean,
-    encoder: Encoder
-  ): PlainData;
+  public decrypt(cipher: CipherText, expectsObject: boolean, encoder: Encoder): PlainData;
 
-  public decrypt(
-    cipher?: CipherText,
-    secondArg?: boolean | Encoder,
-    thirdArg?: Encoder
-  ): PlainData {
+  public decrypt(cipher?: CipherText, secondArg?: boolean | Encoder, thirdArg?: Encoder): PlainData {
     const setDecryptionOption = (arg: boolean | Encoder): void => {
-      if (typeof arg !== "boolean") this.setEncoder(arg);
+      if (typeof arg !== 'boolean') this.setEncoder(arg);
     };
 
     // eslint-disable-next-line no-useless-catch
@@ -543,9 +510,7 @@ export class Encryptor {
    * @return  {Encryptor}    Current Encryptor instance.
    */
   public setSecret(secret: string | lib.WordArray): Encryptor {
-    this._secret = SHA3(
-      typeof secret === "string" ? secret : secret.toString()
-    );
+    this._secret = SHA3(typeof secret === 'string' ? secret : secret.toString());
 
     return this;
   }

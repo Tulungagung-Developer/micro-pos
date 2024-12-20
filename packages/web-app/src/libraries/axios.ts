@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 export const http = Axios.create({
   timeout: 20 * 1000,

@@ -1,5 +1,5 @@
-import { useTestAxios } from "@resources/rest/test.rest";
-import React, { useEffect } from "react";
+import { useTestAxios } from '@resources/rest/test.rest';
+import React, { useEffect } from 'react';
 
 const LoginPage: React.FC = () => {
   const [tesAxios] = useTestAxios();

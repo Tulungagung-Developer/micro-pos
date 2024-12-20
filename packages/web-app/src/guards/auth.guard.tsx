@@ -1,6 +1,6 @@
-import { useApp } from "@providers/app.providers";
-import { Navigate } from "react-router";
-import React from "react";
+import { useApp } from '@providers/app.providers';
+import { Navigate } from 'react-router';
+import React from 'react';
 
 interface Props {
   children: React.ReactNode;

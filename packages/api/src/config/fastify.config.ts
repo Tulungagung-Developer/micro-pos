@@ -6,7 +6,6 @@ import { EnvConfig } from './env.config';
 
 const logger = new Logger('Fastify');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const FastifyConfig: FastifyHttpOptions<any> = {
   trustProxy: true,
   genReqId: (req: RawRequestDefaultExpression) => (req.headers['x-request-id'] as string) || uuid(),

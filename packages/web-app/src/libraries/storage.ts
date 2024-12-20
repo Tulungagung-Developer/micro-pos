@@ -1,8 +1,8 @@
-import { Encryptor } from "@libraries/encryptor";
-import { forIn, includes, startsWith } from "lodash-es";
+import { Encryptor } from '@libraries/encryptor';
+import { forIn, includes, startsWith } from 'lodash-es';
 
-const APP_PREFIX = "ta_dev_micropos_";
-const encryptor = new Encryptor("microPos2024");
+const APP_PREFIX = 'ta_dev_micropos_';
+const encryptor = new Encryptor('microPos2024');
 
 export class LocalStorage {
   static getLength() {
@@ -10,11 +10,7 @@ export class LocalStorage {
   }
 
   static setItem(key: string, value: any) {
-    if (
-      value !== "undefined" &&
-      typeof value !== "undefined" &&
-      value !== null
-    ) {
+    if (value !== 'undefined' && typeof value !== 'undefined' && value !== null) {
       localStorage.setItem(`${APP_PREFIX}${key}`, encryptor.encrypt(value));
     } else {
       LocalStorage.removeItem(key);
@@ -29,9 +25,7 @@ export class LocalStorage {
 
     const decrypted = encryptor.decrypt(val);
 
-    return typeof decrypted !== "string"
-      ? JSON.stringify(decrypted)
-      : decrypted;
+    return typeof decrypted !== 'string' ? JSON.stringify(decrypted) : decrypted;
   }
 
   static removeItem(key: string) {
@@ -41,11 +35,8 @@ export class LocalStorage {
   static clear(exceptKeys?: string[]) {
     const newKeys = exceptKeys?.map((key) => APP_PREFIX + key);
 
-    forIn(window.localStorage, (value: any, objKey: string) => {
-      if (
-        startsWith(objKey, APP_PREFIX) === true &&
-        !includes(newKeys, objKey)
-      ) {
+    forIn(window.localStorage, (_value: any, objKey: string) => {
+      if (startsWith(objKey, APP_PREFIX) && !includes(newKeys, objKey)) {
         window.localStorage.removeItem(objKey);
       }
     });
@@ -53,9 +44,9 @@ export class LocalStorage {
 
   /** Tests that localStorage exists, can be written to, and read from. */
   static testLocalStorage() {
-    const testValue = "testValue";
-    const testKey = "testKey";
-    const errorMessage = "localStorage did not return expected value";
+    const testValue = 'testValue';
+    const testKey = 'testKey';
+    const errorMessage = 'localStorage did not return expected value';
 
     LocalStorage.setItem(testKey, testValue);
 
