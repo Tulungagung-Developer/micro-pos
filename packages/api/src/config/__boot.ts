@@ -5,7 +5,7 @@ MakeEnv.initialize({
   ensureKeys: [
     'SERVER_PORT',
     'DEBUG',
-    'COOKIE_SECRET',
+    'JWT_SECRET',
     'DATABASE_HOST',
     'DATABASE_PORT',
     'DATABASE_USERNAME',

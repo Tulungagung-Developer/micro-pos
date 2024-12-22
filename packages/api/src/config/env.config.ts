@@ -1,4 +1,5 @@
 import { config } from 'dotenv';
+import { Logger } from '@nestjs/common';
 
 interface OptionsMakeEnv {
   pathEnv?: string;
@@ -11,7 +12,7 @@ export class MakeEnv {
   private constructor(
     options?: OptionsMakeEnv,
     private readonly raw: NodeJS.ProcessEnv = {},
-    private readonly logger = console.warn,
+    private readonly logger = new Logger(MakeEnv.name),
 
     readonly storage = new Map<string, string>(),
   ) {
@@ -35,7 +36,7 @@ export class MakeEnv {
       message = message.concat(` with ${opts.ensureKeys.length} keys to ensure`);
     }
 
-    this.logger(message);
+    this.logger.debug(message);
   }
 
   static initialize(options?: OptionsMakeEnv): MakeEnv {
