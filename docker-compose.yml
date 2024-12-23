@@ -16,8 +16,8 @@ services:
       - '30011:8080'
     networks:
       net:
-    environment:
-      APP_HOST: ${APP_HOST}
+    env_file:
+      - .env
 
   server:
     container_name: micro-pos-server
@@ -34,22 +34,8 @@ services:
       - '30010:3000'
     networks:
       net:
-    environment:
-      NODE_ENV: ${NODE_ENV}
-      TZ: ${TZ}
-      SERVER_PORT: ${SERVER_PORT}
-      DEBUG: ${DEBUG}
-      SERVER_SENTRY_DSN: ${SERVER_SENTRY_DSN}
-      COOKIE_SECRET: ${COOKIE_SECRET}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_SSL: ${DATABASE_SSL}
-      MAIL_HOST: ${MAIL_HOST}
-      MAIL_USERNAME: ${MAIL_USERNAME}
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
+    env_file:
+      - .env
 
 networks:
   net:
