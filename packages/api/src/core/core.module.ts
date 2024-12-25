@@ -5,6 +5,8 @@ import { EnvConfig } from '@conf/env.config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailConfig } from '@conf/mail.config';
 import { UserService } from '@core/services/user.service';
+import { RbacService } from '@core/services/rbac.service';
+import { AbilityGuard } from '@core/guard/ability.guard';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { UserService } from '@core/services/user.service';
     }),
     MailerModule.forRoot(MailConfig),
   ],
-  providers: [GuardService, UserService],
-  exports: [GuardService, UserService],
+  providers: [AbilityGuard, GuardService, RbacService, UserService],
+  exports: [GuardService, UserService, RbacService],
 })
 export class CoreModule {}

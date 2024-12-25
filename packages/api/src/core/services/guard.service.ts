@@ -3,10 +3,16 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { User } from '@db/entities/core/user.entity';
 import { EnvConfig } from '@conf/env.config';
+import { UserAbility } from '@core/services/rbac.service';
 
 type JwtPayload = {
   sub: string;
   iat: number;
+};
+
+export type AuthenticatedPayload = {
+  user: User;
+  ability: UserAbility;
 };
 
 @Injectable()

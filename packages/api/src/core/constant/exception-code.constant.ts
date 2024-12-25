@@ -18,6 +18,9 @@ export enum ExceptionCode {
   INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
   DATABASE_ERROR = 'DATABASE_ERROR',
   EXTERNAL_SERVICE_ERROR = 'EXTERNAL_SERVICE_ERROR',
+
+  // Custom
+  UNKNOW_ERROR = 'UNKNOW_ERROR',
 }
 
 export const ExceptionErrorMessages: Record<ExceptionCode, string> = {
@@ -25,7 +28,7 @@ export const ExceptionErrorMessages: Record<ExceptionCode, string> = {
   [ExceptionCode.UNAUTHORIZED_MISSING_TOKEN]: 'Authentication token is missing',
   [ExceptionCode.UNAUTHORIZED_INVALID_TOKEN]: 'Invalid authentication token',
   [ExceptionCode.UNAUTHORIZED_USER_NOT_FOUND]: 'User not found for the provided token',
-  [ExceptionCode.FORBIDDEN]: 'Access forbidden',
+  [ExceptionCode.FORBIDDEN]: 'Client does not have permission',
   [ExceptionCode.ENTITY_NOT_FOUND]: 'entity not found',
   [ExceptionCode.ENTITY_ALREADY_EXISTS]: 'entity  exists',
   [ExceptionCode.VALIDATION_ERROR]: 'Validation error occurred',
@@ -33,4 +36,5 @@ export const ExceptionErrorMessages: Record<ExceptionCode, string> = {
   [ExceptionCode.INTERNAL_SERVER_ERROR]: 'Internal server error',
   [ExceptionCode.DATABASE_ERROR]: 'Database error occurred',
   [ExceptionCode.EXTERNAL_SERVICE_ERROR]: 'External service error',
+  [ExceptionCode.UNKNOW_ERROR]: 'Unknown error occurred',
 };

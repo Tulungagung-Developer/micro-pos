@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@casl/ability": "^6.7.2",
     "@fastify/cookie": "^9.4.0",
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/cache-manager": "^2.3.0",

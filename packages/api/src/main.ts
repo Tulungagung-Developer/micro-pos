@@ -12,6 +12,7 @@ import { ExceptionFilter } from '@core/filter/exception.filter';
 import { ValidatorConfig } from '@conf/validator.config';
 import { TypeormFilter } from '@core/filter/typeorm.filter';
 import { Logger } from 'nestjs-pino';
+import { HttpFilter } from '@core/filter/http.filter';
 
 async function bootstrap() {
   const adapter = new FastifyAdapter(FastifyConfig);
@@ -23,7 +24,7 @@ async function bootstrap() {
 
   // ===== Where to place all NestJS global pipes, interceptors, guards, etc. =====
   app.useGlobalPipes(new ValidationPipe(ValidatorConfig));
-  app.useGlobalFilters(new ExceptionFilter(), new TypeormFilter());
+  app.useGlobalFilters(new ExceptionFilter(), new TypeormFilter(), new HttpFilter());
   app.useGlobalInterceptors(new RequestInterceptor(), new ResponseInterceptor());
 
   if (EnvConfig.const.IS_PRODUCTION) {

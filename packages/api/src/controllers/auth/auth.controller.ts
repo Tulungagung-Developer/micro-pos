@@ -10,7 +10,10 @@ import { UserService } from '@core/services/user.service';
 import { CacheInterceptor } from '@nestjs/cache-manager';
 import { Me } from '@core/decorator/user.decorator';
 import { User } from '@db/entities/core/user.entity';
-import { AuthGuard } from '@nestjs/passport';
+import { HasAbility } from '@core/decorator/ability.decorator';
+import { Actions } from '@core/services/rbac.service';
+import { AbilityGuard } from '@core/guard/ability.guard';
+import { AuthGuard } from '@core/guard/auth.guard';
 
 @Controller()
 @UseInterceptors(CacheInterceptor)
@@ -34,8 +37,9 @@ export class AuthController extends AbstractController {
     return this.userService.verifyForgotPassword(query);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Post('/change-password')
+  @UseGuards(AuthGuard, AbilityGuard)
+  @HasAbility(Actions.Update, User)
   async changePassword(@Body() body: AuthChangePassword, @Me() user: User) {
     return this.userService.authChangePassword(user, body);
   }

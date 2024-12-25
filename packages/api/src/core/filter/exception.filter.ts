@@ -4,6 +4,7 @@ import { AbstractException } from '@core/exception/abstract.exception';
 import { BaseResponseDto } from '@core/dto/base.dto';
 import { EnvConfig } from '@conf/env.config';
 import { stackToJSON } from '@lib/utils/stack-json.util';
+import { ExceptionCode, ExceptionErrorMessages } from '@core/constant/exception-code.constant';
 
 @Catch()
 export class ExceptionFilter implements Filter {
@@ -32,8 +33,8 @@ export class ExceptionFilter implements Filter {
     }
 
     response.error = {
-      code: 500,
-      message: 'Something were wrong in API',
+      code: ExceptionCode.UNKNOW_ERROR,
+      message: ExceptionErrorMessages.UNKNOW_ERROR,
       details: [],
     };
 

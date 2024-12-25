@@ -1,9 +1,10 @@
 import { BaseEntity, CoreEntity } from '@db/entities/base';
-import { EntityManager, Index, Not } from 'typeorm';
+import { EntityManager, Index, ManyToOne, Not } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { hasPassed, time } from '@lib/utils/time.util';
-import { DateColumn, StringColumn } from '@lib/typeorm/decorator.typeorm';
+import { DateColumn, ForeignColumn, StringColumn } from '@lib/typeorm/decorator.typeorm';
 import { Connector } from '@lib/typeorm/connector.typeorm';
+import { Role } from '@db/entities/core/role.entity';
 
 export enum TypeUserOTP {
   FORGOT_PASSWORD = 'forgot_password',
@@ -34,6 +35,13 @@ export class User extends BaseEntity {
   @Exclude()
   @DateColumn({ nullable: true })
   otp_expires_at: Date | null;
+
+  @Exclude()
+  @ForeignColumn()
+  role_id: string;
+
+  @ManyToOne(() => Role, { onDelete: 'SET NULL' })
+  role: Promise<Role>;
 
   clearOTP() {
     this.otp = null;
