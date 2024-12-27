@@ -1,3 +1,3 @@
 module.exports = {
-  'packages/**/*.(ts|js)?(x)': ['eslint --cache --fix', 'prettier --write'],
+  'packages/**/*.ts?(x)': ['eslint --cache --fix', 'prettier --write'],
 };
