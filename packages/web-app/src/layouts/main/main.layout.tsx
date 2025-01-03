@@ -1,8 +1,16 @@
-import { PrivateRoute } from '@guards/auth.guard';
 import React from 'react';
+import { DashboardLayout } from '@components/layout/dashboard';
+import { Outlet } from 'react-router';
+// import { PrivateRoute } from "@guards/auth.guard";
 
-const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <PrivateRoute>{children}</PrivateRoute>;
+const MainLayout = () => {
+  return (
+    // <PrivateRoute>
+    // </PrivateRoute>
+    <DashboardLayout>
+      <Outlet />
+    </DashboardLayout>
+  );
 };
 
 export default MainLayout;
