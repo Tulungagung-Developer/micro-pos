@@ -1,10 +1,10 @@
-import globals from 'globals';
 import js from '@eslint/js';
-import tsEslint from 'typescript-eslint';
-import pluginReact from 'eslint-plugin-react';
 import prettier from 'eslint-config-prettier';
+import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import globals from 'globals';
+import tsEslint from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -41,6 +41,7 @@ export default [
       'no-console': ['error', { allow: ['warn', 'error'] }],
       '@typescript-eslint/no-explicit-any': 'off',
       'react-hooks/exhaustive-deps': 'off',
+      'react/react-in-jsx-scope': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
