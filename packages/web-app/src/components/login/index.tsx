@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Carousel } from 'rsuite';
 import { ContentForm } from './content-form';
+import { Carousel } from 'rsuite';
 import data from './content.json';
 
 export const LoginForm = () => {
