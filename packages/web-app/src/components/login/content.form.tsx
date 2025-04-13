@@ -53,7 +53,13 @@ export const ContentForm: React.FC = () => {
   return (
     <div className="flex flex-col gap-10 px-5 lg:px-0 w-full lg:w-1/2 text-base lg:text-lg">
       <div className="flex justify-center gap-5 items-center flex-col">
-        <img width={100} height={100} alt="waodkaod" src="/images/Logomark.png" />
+        <img
+          width={100}
+          height={100}
+          alt="waodkaod"
+          src="/images/l
+        ogomark.png"
+        />
         <div className="text-4xl font-bold">Login</div>
         <p className="text-gray-500 ">Login to start billing and stock management</p>
       </div>
